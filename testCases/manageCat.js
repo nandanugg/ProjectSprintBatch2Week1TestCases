@@ -252,17 +252,17 @@ export function TestGetManageCat(config, user, cat, tags = {}) {
 }
 
 /**
- * Test manage cat PATCH API
+ * Test manage cat PUT API
  * @param {Config} config
  * @param {User} user
  * @param {Object} tags
  * @return {import("../types/cat.js").Cat} cat
  */
-export function TestPatchManageCat(config, user, tags = {}) {
+export function TestPutManageCat(config, user, tags = {}) {
   let res, currentTest;
   // eslint-disable-next-line no-undef
   const getRoute = `${__ENV.BASE_URL}/v1/cat`;
-  const currentFeature = `${TEST_NAME} | patch manage cat`;
+  const currentFeature = `${TEST_NAME} | put manage cat`;
   if (!user) fail(`${currentFeature} fail due to user is empty`);
 
   const headers = {

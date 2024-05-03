@@ -1,7 +1,7 @@
 import { TestLogin } from './testCases/loginTest.js';
 import { TestRegistration } from './testCases/registerTest.js'
 import config from './config.js';
-import { TestDeleteManageCat, TestGetManageCat, TestPatchManageCat, TestPostManageCat } from './testCases/manageCat.js';
+import { TestDeleteManageCat, TestGetManageCat, TestPutManageCat, TestPostManageCat } from './testCases/manageCat.js';
 import { TestDeleteManageCatMatch, TestGetManageCatMatch, TestPostManageCatMatch } from './testCases/manageCatMatch.js';
 
 export const options = {
@@ -19,7 +19,7 @@ export default function () {
 
         let cat = TestPostManageCat(config, user)
         TestGetManageCat(config, user, cat)
-        TestPatchManageCat(config, user)
+        TestPutManageCat(config, user)
         TestDeleteManageCat(config, user)
     }
 
