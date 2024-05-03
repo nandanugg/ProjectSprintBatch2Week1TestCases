@@ -50,8 +50,8 @@ export function TestPostManageCatMatch(config, user, tags = {}) {
       type: 'string', notNull: true, minLength: 1, maxLength: 120,
     },
   }, {
-    matchCatId: notOwnedCats[generateRandomNumber(0, notOwnedCats.length)].id,
-    userCatId: ownedCats[generateRandomNumber(0, ownedCats.length)].id,
+    matchCatId: notOwnedCats[generateRandomNumber(0, notOwnedCats.length - 1)].id,
+    userCatId: ownedCats[generateRandomNumber(0, ownedCats.length - 1)].id,
     message: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
   });
 
@@ -230,7 +230,7 @@ export function TestGetManageCatMatch(config, user, tags = {}) {
   }, { owned: true });
   /** @type {Cat[]} */
   const ownedCats = res.json().data;
-  const userCat = ownedCats[generateRandomNumber(0, ownedCats.length)]
+  const userCat = ownedCats[generateRandomNumber(0, ownedCats.length - 1)]
 
 
   currentTest = 'get all cats that is not owned, not matched and have opposite gender';
@@ -240,7 +240,7 @@ export function TestGetManageCatMatch(config, user, tags = {}) {
   }, { owned: false, limit: 1000, offset: 0 });
   /** @type {Cat[]} */
   const notOwnedCats = res.json().data;
-  const matchCat = notOwnedCats[generateRandomNumber(0, notOwnedCats.length)]
+  const matchCat = notOwnedCats[generateRandomNumber(0, notOwnedCats.length - 1)]
 
   currentTest = 'match a new cat';
   const positivePayload = {
