@@ -267,7 +267,7 @@ export function testPostJson(route, body, headersObj, tags = {}, options = [],) 
  * @param {object} headersObj - External headers other than `Content-Type`
  * @returns {import("k6/http").RefinedResponse} - k6 http response.
  */
-export function testPatchJson(route, body, headersObj, tags = {}, options = []) {
+export function testPutJson(route, body, headersObj, tags = {}, options = []) {
     const headers = options.includes("noContentType") ? Object.assign({}, headersObj) : Object.assign({ "Content-Type": "application/json" }, headersObj)
     const parsedBody = options.includes("plainBody") ? body : JSON.stringify(body);
 

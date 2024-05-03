@@ -1,6 +1,6 @@
 import { fail } from 'k6';
 import {
-  generateRandomDescription, generateRandomImageUrl, generateRandomNumber, isValidDate, testDelete, testGet, testPatchJson,
+  generateRandomDescription, generateRandomImageUrl, generateRandomNumber, isValidDate, testDelete, testGet, testPutJson,
 
   generateTestObjects, generateUniqueName, isEqual, isExists, testPostJson, assert,
 } from '../helper.js';
@@ -289,14 +289,14 @@ export function TestPatchManageCat(config, user, tags = {}) {
 
   if (!config.POSITIVE_CASE) {
     currentTest = 'no header';
-    res = testPatchJson(route, {}, {}, tags, ['noContentType']);
+    res = testPutJson(route, {}, {}, tags, ['noContentType']);
     assert(res, currentFeature, config, {
       [`${currentTest} should return 401`]: (r) => r.status === 401,
     });
 
 
     currentTest = 'no payload';
-    res = testPatchJson(route, {}, headers, tags, ['noContentType']);
+    res = testPutJson(route, {}, headers, tags, ['noContentType']);
     assert(res, currentFeature, config, {
       [`${currentTest} should return 401`]: (r) => r.status === 400,
     });
@@ -304,7 +304,7 @@ export function TestPatchManageCat(config, user, tags = {}) {
 
     manageCatNegativePayloads.forEach((payload) => {
       currentTest = 'invalid payload';
-      res = testPatchJson(route, payload, headers, tags);
+      res = testPutJson(route, payload, headers, tags);
       assert(res, currentFeature, config, {
         [`${currentTest} should return 400`]: (r) => r.status === 400,
       }, payload);
@@ -312,7 +312,7 @@ export function TestPatchManageCat(config, user, tags = {}) {
   }
 
   currentTest = 'update cat';
-  res = testPatchJson(route, positivePayload, headers, tags);
+  res = testPutJson(route, positivePayload, headers, tags);
   let positivePayloadPassAssertTest = assert(res, currentFeature, config, {
     [`${currentTest} should return 200`]: (r) => r.status === 200,
   }, positivePayload);

@@ -1,6 +1,6 @@
 import { fail } from 'k6';
 import {
-  generateRandomDescription, generateRandomImageUrl, generateRandomNumber, testDelete, testGet, testPatchJson,
+  generateRandomDescription, generateRandomImageUrl, generateRandomNumber, testDelete, testGet, testPutJson,
 
   generateTestObjects, generateUniqueName, isExists, testPostJson, assert,
 } from '../helper.js';
@@ -211,7 +211,7 @@ export function TestGetManageCatMatch(config, user, tags = {}) {
   if (!config.POSITIVE_CASE) {
     currentTest = 'cat that is matched should not be able to edit the gender'
     // eslint-disable-next-line no-undef
-    res = testPatchJson(`${__ENV.BASE_URL}/v1/cat/${userCatMatch.userCatDetail.id}`, {
+    res = testPutJson(`${__ENV.BASE_URL}/v1/cat/${userCatMatch.userCatDetail.id}`, {
       name: generateUniqueName(),
       race: generateRandomCatBreed(),
       ageInMonth: generateRandomNumber(1, 120082),
