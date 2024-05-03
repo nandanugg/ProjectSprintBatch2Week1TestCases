@@ -159,6 +159,8 @@ export function TestGetManageCatMatch(config, user, tags = {}) {
   let res, currentTest;
   // eslint-disable-next-line no-undef
   const route = `${__ENV.BASE_URL}/v1/cat/match`;
+  // eslint-disable-next-line no-undef
+  const getRoute = `${__ENV.BASE_URL}/v1/cat`;
   const currentFeature = `${TEST_NAME} | get manage cat h`;
   if (!user) fail(`${currentFeature} fail due to user is empty`);
 
@@ -204,6 +206,36 @@ export function TestGetManageCatMatch(config, user, tags = {}) {
   currentTest = 'get all match cats';
   res = testGet(route, {}, headers, tags);
   assert(res, currentFeature, config, commonChecks(currentTest));
+
+  currentTest = 'get all cats that owned and not matched';
+  res = testGet(getRoute, { owned: true, hasMatched: false, limit: 1000, offset: 0 }, headers, tags);
+  assert(res, currentFeature, config, {
+    [`${currentTest} should return 200`]: (r) => r.status === 200,
+  }, { owned: true });
+  /** @type {Cat[]} */
+  const ownedCats = res.json().data;
+  const userCat = ownedCats[generateRandomNumber(0, ownedCats.length)]
+
+
+  currentTest = 'get all cats that is not owned, not matched and have opposite gender';
+  res = testGet(getRoute, { owned: false, hasMatched: false, sex: generateRandomCatGender(userCat.sex), limit: 1000, offset: 0 }, headers, tags);
+  assert(res, currentFeature, config, {
+    [`${currentTest} should return 200`]: (r) => r.status === 200,
+  }, { owned: false, limit: 1000, offset: 0 });
+  /** @type {Cat[]} */
+  const notOwnedCats = res.json().data;
+  const matchCat = notOwnedCats[generateRandomNumber(0, notOwnedCats.length)]
+
+  currentTest = 'match a new cat';
+  const positivePayload = {
+    matchCatId: matchCat.id,
+    userCatId: userCat.id,
+    message: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+  };
+  res = testPostJson(route, positivePayload, headers, tags);
+  assert(res, currentFeature, config, {
+    [`${currentTest} should return 201`]: (r) => r.status === 201,
+  }, positivePayload);
 
   let userCatMatch
   userCatMatch = res.json().data.find(
