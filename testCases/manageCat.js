@@ -347,7 +347,7 @@ export function TestDeleteManageCat(config, user, tags = {}) {
   let res, currentTest;
   // eslint-disable-next-line no-undef
   const getRoute = `${__ENV.BASE_URL}/v1/cat`;
-  const currentFeature = `${TEST_NAME} | patch manage cat`;
+  const currentFeature = `${TEST_NAME} | delete manage cat`;
   if (!user) fail(`${currentFeature} fail due to user is empty`);
 
   const headers = {
