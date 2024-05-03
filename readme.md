@@ -4,7 +4,6 @@
 - [K6](https://k6.io/docs/get-started/installation/)
 - A linux environment (WSL / MacOS should be fine)
 
-
 ### Environment Variables
 - `BASE_URL` fill this with your backend url (eg: `http://localhost:8080`)
 
