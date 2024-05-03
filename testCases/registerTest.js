@@ -61,8 +61,8 @@ export function TestRegistration(config, tags = {}) {
     if (!config.POSITIVE_CASE) {
         // Negative case, email already exists
         currentTest = "email already exists"
-        testPostJson(route, positivePayload, {}, tags)
-        assert(res, currentFeature, config, {
+        const exRes = testPostJson(route, positivePayload, {}, tags)
+        assert(exRes, currentFeature, config, {
             [`${currentTest} should return 409`]: (r) => r.status === 409,
         }, positivePayload)
     }

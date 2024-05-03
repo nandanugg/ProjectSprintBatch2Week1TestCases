@@ -156,8 +156,8 @@ export function TestPostManageCatMatch(config, user, tags = {}) {
 
   if (!config.POSITIVE_CASE) {
     currentTest = 'match a cat that already matched';
-    testPostJson(route, positivePayload, headers, tags);
-    assert(res, currentFeature, config, {
+    const exRes = testPostJson(route, positivePayload, headers, tags);
+    assert(exRes, currentFeature, config, {
       [`${currentTest} should return 400`]: (r) => r.status === 400,
     }, positivePayload);
   }
