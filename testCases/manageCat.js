@@ -166,7 +166,7 @@ export function TestGetManageCat(config, user, cat, tags = {}) {
 
 
   currentTest = 'search by gender'
-  res = testGet(route, { sex: cat.gender }, headers, tags);
+  res = testGet(route, { sex: cat.sex }, headers, tags);
   assert(res, currentFeature, config, Object.assign(commonChecks(currentTest), {
     'valid payload should have the value equal to gender query param': (r) => isEqual(r, 'data.[].gender', cat.gender),
   }), { sex: cat.gender });
