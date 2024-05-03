@@ -294,7 +294,9 @@ export function TestDeleteManageCatMatch(config, user, tags = {}) {
   });
   let catMatch = res.json().data.find(
     /** @param {CatMatch} match */
-    (match) => match.userCatDetail.hasMatched === false && match.matchCatDetail.hasMatched === false);
+    (match) => match.userCatDetail.hasMatched === false
+      && match.issuedBy.email == user.email
+      && match.matchCatDetail.hasMatched === false);
 
 
   // eslint-disable-next-line no-undef
