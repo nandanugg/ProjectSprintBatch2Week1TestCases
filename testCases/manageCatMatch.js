@@ -279,26 +279,26 @@ export function TestGetManageCatMatch(config, user, tags = {}) {
 export function TestDeleteManageCatMatch(config, user, tags = {}) {
   let res, currentTest;
 
+  const headers = {
+    Authorization: `Bearer ${user.accessToken}`,
+  };
+  // eslint-disable-next-line no-undef
+  const getRoute = `${__ENV.BASE_URL}/v1/cat/match`;
+  const currentFeature = `${TEST_NAME} | delete manage cat`;
+  if (!user) fail(`${currentFeature} fail due to user is empty`);
+
   currentTest = 'get all match cats';
-  res = testGet(route, {}, headers, tags);
+  res = testGet(getRoute, {}, headers, tags);
   assert(res, currentFeature, config, {
     [`${currentTest} should return 200`]: (r) => r.status === 200,
   });
-
   let catMatch = res.json().data.find(
     /** @param {CatMatch} match */
     (match) => match.userCatDetail.hasMatched === false && match.matchCatDetail.hasMatched === false);
 
-  // eslint-disable-next-line no-undef
-  const getRoute = `${__ENV.BASE_URL}/v1/cat/match`;
+
   // eslint-disable-next-line no-undef
   const route = `${__ENV.BASE_URL}/v1/cat/match/${catMatch.id}`;
-  const currentFeature = `${TEST_NAME} | delete manage cat`;
-  if (!user) fail(`${currentFeature} fail due to user is empty`);
-
-  const headers = {
-    Authorization: `Bearer ${user.accessToken}`,
-  };
 
   if (!config.POSITIVE_CASE) {
     // Negative case, no header
