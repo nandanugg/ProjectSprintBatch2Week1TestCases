@@ -71,7 +71,7 @@ export function TestLogin(config, user, tags = {}) {
     res = testPostJson(route, positivePayload, {}, tags)
     const positivePayloadPassAssertTest = assert(res, currentFeature, config, {
         [`${currentTest} valid payload should return 200`]: (r) => r.status === 200,
-        [`${currentTest} valid payload should have user name`]: (r) => isEqual(r, 'data.name', positivePayload.name),
+        [`${currentTest} valid payload should have user name`]: (r) => isEqual(r, 'data.name', user.name),
         [`${currentTest} valid payload should have user email`]: (r) => isEqual(r, 'data.email', positivePayload.email),
         [`${currentTest} valid payload should have user accessToken`]: (r) => isExists(r, 'data.accessToken'),
     }, positivePayload)
