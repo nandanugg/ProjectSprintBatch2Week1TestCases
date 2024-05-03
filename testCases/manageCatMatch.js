@@ -216,7 +216,7 @@ export function TestGetManageCatMatch(config, user, tags = {}) {
       race: generateRandomCatBreed(),
       ageInMonth: generateRandomNumber(1, 120082),
       sex: generateRandomCatGender(userCatMatch.userCatDetail.sex),
-      description: generateRandomDescription(1, 200),
+      description: generateRandomDescription(200),
       imageUrls: [generateRandomImageUrl()],
     }, headers, tags);
     assert(res, currentFeature, config, {

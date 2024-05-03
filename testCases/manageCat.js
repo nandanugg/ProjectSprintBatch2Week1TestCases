@@ -45,7 +45,7 @@ export function TestPostManageCat(config, user, tags = {}, ageInMonth = 0) {
     race: catBreed,
     ageInMonth: ageInMonth || generateRandomNumber(1, 120082),
     sex: catSex,
-    description: generateRandomDescription(1, 200),
+    description: generateRandomDescription(200),
     imageUrls: [generateRandomImageUrl()],
   };
   const headers = {
@@ -186,7 +186,7 @@ export function TestGetManageCat(config, user, cat, tags = {}) {
       race: generateRandomCatBreed(),
       ageInMonth: ageInMonth,
       sex: generateRandomCatGender(),
-      description: generateRandomDescription(1, 200),
+      description: generateRandomDescription(200),
       imageUrls: [generateRandomImageUrl()],
     });
     currentTest = 'create cat with ageInMonth less than middleAgeInMonth';
@@ -283,7 +283,7 @@ export function TestPutManageCat(config, user, tags = {}) {
     race: generateRandomCatBreed(),
     ageInMonth: generateRandomNumber(1, 120082),
     sex: generateRandomCatGender(cat.sex),
-    description: generateRandomDescription(1, 200),
+    description: generateRandomDescription(200),
     imageUrls: [generateRandomImageUrl()],
   };
 
