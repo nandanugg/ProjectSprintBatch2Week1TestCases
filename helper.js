@@ -289,7 +289,7 @@ export function testDelete(route, params, headersObj, tags = {}) {
     const modifiedRoute = route + "?" + queryParams;
     const headers = Object.assign({}, headersObj);
 
-    return http.get(modifiedRoute, { headers, tags });
+    return http.del(modifiedRoute, { headers, tags });
 }
 
 
