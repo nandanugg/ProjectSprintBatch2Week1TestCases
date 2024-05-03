@@ -271,7 +271,7 @@ export function testPatchJson(route, body, headersObj, tags = {}, options = []) 
     const headers = options.includes("noContentType") ? Object.assign({}, headersObj) : Object.assign({ "Content-Type": "application/json" }, headersObj)
     const parsedBody = options.includes("plainBody") ? body : JSON.stringify(body);
 
-    return http.patch(route, parsedBody, { headers, tags });
+    return http.put(route, parsedBody, { headers, tags });
 }
 
 /**
