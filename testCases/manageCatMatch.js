@@ -138,7 +138,7 @@ export function TestPostManageCatMatch(config, user, tags = {}) {
 
   if (!config.POSITIVE_CASE) {
     currentTest = 'match a cat that already matched';
-    res = testPostJson(route, positivePayload, headers, tags);
+    testPostJson(route, positivePayload, headers, tags);
     assert(res, currentFeature, config, {
       [`${currentTest} should return 400`]: (r) => r.status === 400,
     }, positivePayload);
@@ -211,7 +211,7 @@ export function TestGetManageCatMatch(config, user, tags = {}) {
   if (!config.POSITIVE_CASE) {
     currentTest = 'cat that is matched should not be able to edit the gender'
     // eslint-disable-next-line no-undef
-    res = testPutJson(`${__ENV.BASE_URL}/v1/cat/${userCatMatch.userCatDetail.id}`, {
+    testPutJson(`${__ENV.BASE_URL}/v1/cat/${userCatMatch.userCatDetail.id}`, {
       name: generateUniqueName(),
       race: generateRandomCatBreed(),
       ageInMonth: generateRandomNumber(1, 120082),
@@ -484,7 +484,7 @@ export function TestPostManageCatReject(config, user, tags = {}) {
 
   if (!config.POSITIVE_CASE) {
     currentTest = 'get all match cats';
-    res = testGet(getRoute, {}, headers, tags);
+    testGet(getRoute, {}, headers, tags);
     positivePayloadPassAssertTest = assert(res, currentFeature, config, {
       [`'${currentTest} should return 200`]: (r) => r.status === 200,
       [`'${currentTest} should not have rejected match request`]: (r) => {
@@ -498,6 +498,4 @@ export function TestPostManageCatReject(config, user, tags = {}) {
   }
 
   if (!positivePayloadPassAssertTest) return null;
-
-  return res.json().data;
 }
