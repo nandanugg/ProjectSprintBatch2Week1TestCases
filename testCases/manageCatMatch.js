@@ -256,7 +256,7 @@ export function TestGetManageCatMatch(config, user, tags = {}) {
   if (!config.POSITIVE_CASE) {
     currentTest = 'cat that is matched should not be able to edit the gender'
     // eslint-disable-next-line no-undef
-    testPutJson(`${__ENV.BASE_URL}/v1/cat/${userCat.id}`, {
+    res = testPutJson(`${__ENV.BASE_URL}/v1/cat/${userCat.id}`, {
       name: generateUniqueName(),
       race: generateRandomCatBreed(),
       ageInMonth: generateRandomNumber(1, 120082),
