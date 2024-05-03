@@ -253,19 +253,14 @@ export function TestGetManageCatMatch(config, user, tags = {}) {
     [`${currentTest} should return 201`]: (r) => r.status === 201,
   }, positivePayload);
 
-  let userCatMatch
-  userCatMatch = res.json().data.find(
-    /** @param {CatMatch} match */
-    (match) => match.userCatDetail.hasMatched === false && match.matchCatDetail.hasMatched === false);
-
   if (!config.POSITIVE_CASE) {
     currentTest = 'cat that is matched should not be able to edit the gender'
     // eslint-disable-next-line no-undef
-    testPutJson(`${__ENV.BASE_URL}/v1/cat/${userCatMatch.userCatDetail.id}`, {
+    testPutJson(`${__ENV.BASE_URL}/v1/cat/${userCat.id}`, {
       name: generateUniqueName(),
       race: generateRandomCatBreed(),
       ageInMonth: generateRandomNumber(1, 120082),
-      sex: generateRandomCatGender(userCatMatch.userCatDetail.sex),
+      sex: generateRandomCatGender(userCat.sex),
       description: generateRandomDescription(200),
       imageUrls: [generateRandomImageUrl()],
     }, headers, tags);
@@ -273,8 +268,6 @@ export function TestGetManageCatMatch(config, user, tags = {}) {
       [`${currentTest} should return 400`]: (r) => r.status === 400,
     });
   }
-
-  return userCatMatch
 }
 
 /**
