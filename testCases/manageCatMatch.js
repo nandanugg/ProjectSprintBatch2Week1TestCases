@@ -125,9 +125,11 @@ export function TestPostManageCatMatch(config, user, tags = {}) {
   }
 
   currentTest = 'match a new cat';
+  const matchCatGender = generateRandomCatGender()
+  const userCatGender = generateRandomCatGender(matchCatGender)
   const positivePayload = {
-    matchCatId: notOwnedCats.find((cat) => cat.hasMatched === false).id,
-    userCatId: ownedCats.find((cat) => cat.hasMatched === false).id,
+    matchCatId: notOwnedCats.find((cat) => cat.hasMatched === false && cat.sex == matchCatGender).id,
+    userCatId: ownedCats.find((cat) => cat.hasMatched === false && cat.sex == userCatGender).id,
     message: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
   };
   res = testPostJson(route, positivePayload, headers, tags);
