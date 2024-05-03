@@ -26,6 +26,7 @@ export function assert(k6response, featureName, config, conditions, requestPaylo
     });
 
     if (config.DEBUG_ALL) {
+        console.log(featureName + " | request path:", k6response.url);
         console.log(featureName + " | request payload:", requestPayload);
         console.log(featureName + " | response payload:", k6response.body);
     }
