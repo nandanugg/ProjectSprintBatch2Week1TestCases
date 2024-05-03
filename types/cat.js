@@ -15,11 +15,10 @@ export function generateRandomCatGender(oppositeSex) {
     const randomIndex = Math.floor(Math.random() * catGenders.length);
     const randomGender = catGenders[randomIndex];
 
-    if (oppositeSex && oppositeSex === 'male') {
-        return randomGender === 'male' ? 'female' : 'male';
-    } else if (oppositeSex && oppositeSex === 'female') {
-        return randomGender === 'male' ? 'female' : 'male';
+    if (oppositeSex === 'male' || oppositeSex === 'female') {
+        return oppositeSex === 'male' ? 'female' : 'male';
     }
 
     return randomGender;
 }
+
