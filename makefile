@@ -1,3 +1,7 @@
+.PHONY: run_debug
+run:
+	DEBUG_ALL=true k6 run script.js
+
 .PHONY: run
 run:
 	k6 run script.js
