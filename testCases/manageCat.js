@@ -104,7 +104,7 @@ export function TestGetManageCat(config, user, cat, tags = {}) {
   let res, currentTest;
   // eslint-disable-next-line no-undef
   const route = `${__ENV.BASE_URL}/v1/cat`;
-  const currentFeature = `${TEST_NAME} | post manage cat`;
+  const currentFeature = `${TEST_NAME} | get manage cat`;
   if (!user) fail(`${currentFeature} fail due to user is empty`);
   if (!cat) fail(`${currentFeature} fail due to cat is empty`);
 
@@ -193,7 +193,7 @@ export function TestGetManageCat(config, user, cat, tags = {}) {
     const lessThanAgePayload = positivePayload(generateRandomNumber(1, middleAgeInMonth - 1));
     res = testPostJson(route, lessThanAgePayload, headers, tags);
     assert(res, currentFeature, config, {
-      [`${currentTest} should return 200`]: (r) => r.status === 200,
+      [`${currentTest} should return 201`]: (r) => r.status === 201,
     }, lessThanAgePayload);
 
 
@@ -201,7 +201,7 @@ export function TestGetManageCat(config, user, cat, tags = {}) {
     const moreThanAgePayload = positivePayload(generateRandomNumber(middleAgeInMonth + 1, 120082));
     res = testPostJson(route, moreThanAgePayload, headers, tags);
     assert(res, currentFeature, config, {
-      [`${currentTest} should return 200`]: (r) => r.status === 200,
+      [`${currentTest} should return 201`]: (r) => r.status === 201,
     }, moreThanAgePayload);
 
 
@@ -209,7 +209,7 @@ export function TestGetManageCat(config, user, cat, tags = {}) {
     const centerAgePayload = positivePayload(middleAgeInMonth);
     res = testPostJson(route, centerAgePayload, headers, tags);
     assert(res, currentFeature, config, {
-      [`${currentTest} should return 200`]: (r) => r.status === 200,
+      [`${currentTest} should return 201`]: (r) => r.status === 201,
     }, centerAgePayload);
   }
 
