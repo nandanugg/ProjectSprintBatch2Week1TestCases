@@ -80,7 +80,7 @@ export function TestPostManageCat(config, user, tags = {}, ageInMonth = 0) {
   currentTest = 'valid payload';
   res = testPostJson(route, positivePayload, headers, tags);
   const positivePayloadPassAssertTest = assert(res, currentFeature, config, {
-    [`${currentTest} should return 200`]: (r) => r.status === 200,
+    [`${currentTest} should return 201`]: (r) => r.status === 201,
     [`${currentTest} should have id`]: (r) => isExists(r, 'data.id'),
     [`${currentTest} should have createdAt`]: (r) => isExists(r, 'data.createdAt'),
     [`${currentTest} createdAt should be in ISO 8601 format`]: (r) => isValidDate(r.json().data.createdAt),
