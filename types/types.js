@@ -1,4 +1,14 @@
 /**
+ * Represents a match between two cats.
+ * @typedef {Object} CatMatch
+ * @property {string} id - The id of the match.
+ * @property {User} issuedBy - The user who issued the match.
+ * @property {Cat} matchCatDetail - The details of the cat being matched.
+ * @property {Cat} userCatDetail - The details of the user's cat.
+ * @property {string} message - Additional message for the match.
+ * @property {string} createdAt - The timestamp when the match was created (in ISO 8601 format).
+ */
+/**
  * @typedef {Object} Config
  * @property {boolean} VERBOSE - Determines if verbose logging is enabled.
  * @property {boolean} DEBUG_ALL - Determines if debug mode is enabled for all cases.
@@ -40,3 +50,4 @@
  * Generates a random cat breed.
  * @returns {CatBreed} A random cat breed.
  */
+
