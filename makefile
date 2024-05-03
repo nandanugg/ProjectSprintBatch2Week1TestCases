@@ -1,5 +1,5 @@
 .PHONY: run_debug
-run:
+run_debug:
 	DEBUG_ALL=true k6 run script.js
 
 .PHONY: run
