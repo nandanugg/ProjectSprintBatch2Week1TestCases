@@ -116,7 +116,7 @@ export function TestPostManageCatMatch(config, user, tags = {}) {
       message: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
     }, headers, tags);
     assert(res, currentFeature, config, {
-      [`${currentTest} should return 400`]: (r) => r.status === 400,
+      [`${currentTest} should return 404`]: (r) => r.status === 404,
     }, {
       matchCatId: notOwnedCats[0].id,
       userCatId: notOwnedCats[1].id,
