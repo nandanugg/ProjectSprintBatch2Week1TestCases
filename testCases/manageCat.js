@@ -189,15 +189,15 @@ export function TestGetManageCat(config, user, cat, tags = {}) {
       description: generateRandomDescription(200),
       imageUrls: [generateRandomImageUrl()],
     });
-    currentTest = 'create cat with ageInMonth less than middleAgeInMonth';
-    const lessThanAgePayloadMale = positivePayload(generateRandomNumber(1, middleAgeInMonth - 1));
+    currentTest = 'create male cat with ageInMonth less than middleAgeInMonth';
+    const lessThanAgePayloadMale = positivePayload(generateRandomNumber(1, middleAgeInMonth - 1), "male");
     res = testPostJson(route, lessThanAgePayloadMale, headers, tags);
     assert(res, currentFeature, config, {
       [`${currentTest} should return 201`]: (r) => r.status === 201,
     }, lessThanAgePayloadMale);
 
 
-    currentTest = 'create cat with ageInMonth more than middleAgeInMonth';
+    currentTest = 'create male cat with ageInMonth more than middleAgeInMonth';
     const moreThanAgePayloadMale = positivePayload(generateRandomNumber(middleAgeInMonth + 1, 120082), "male");
     res = testPostJson(route, moreThanAgePayloadMale, headers, tags);
     assert(res, currentFeature, config, {
@@ -205,14 +205,14 @@ export function TestGetManageCat(config, user, cat, tags = {}) {
     }, moreThanAgePayloadMale);
 
 
-    currentTest = 'create cat with ageInMonth equal to middleAgeInMonth';
+    currentTest = 'create male cat with ageInMonth equal to middleAgeInMonth';
     const centerAgePayloadMale = positivePayload(middleAgeInMonth, "male");
     res = testPostJson(route, centerAgePayloadMale, headers, tags);
     assert(res, currentFeature, config, {
       [`${currentTest} should return 201`]: (r) => r.status === 201,
     }, centerAgePayloadMale);
 
-    currentTest = 'create cat with ageInMonth less than middleAgeInMonth';
+    currentTest = 'create female cat with ageInMonth less than middleAgeInMonth';
     const lessThanAgePayloadFemale = positivePayload(generateRandomNumber(1, middleAgeInMonth - 1), "female");
     res = testPostJson(route, lessThanAgePayloadFemale, headers, tags);
     assert(res, currentFeature, config, {
@@ -220,7 +220,7 @@ export function TestGetManageCat(config, user, cat, tags = {}) {
     }, lessThanAgePayloadFemale);
 
 
-    currentTest = 'create cat with ageInMonth more than middleAgeInMonth';
+    currentTest = 'create female cat with ageInMonth more than middleAgeInMonth';
     const moreThanAgePayloadFemale = positivePayload(generateRandomNumber(middleAgeInMonth + 1, 120082), "female");
     res = testPostJson(route, moreThanAgePayloadFemale, headers, tags);
     assert(res, currentFeature, config, {
@@ -228,7 +228,7 @@ export function TestGetManageCat(config, user, cat, tags = {}) {
     }, moreThanAgePayloadFemale);
 
 
-    currentTest = 'create cat with ageInMonth equal to middleAgeInMonth';
+    currentTest = 'create female cat with ageInMonth equal to middleAgeInMonth';
     const centerAgePayloadFemale = positivePayload(middleAgeInMonth, "female");
     res = testPostJson(route, centerAgePayloadFemale, headers, tags);
     assert(res, currentFeature, config, {
