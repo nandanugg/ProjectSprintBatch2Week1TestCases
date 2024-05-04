@@ -513,7 +513,7 @@ export function TestPostManageCatReject(config, user, tags = {}) {
   generateCatMatch(config, currentFeature, headers, tags);
 
   currentTest = 'get all match cats';
-  res = testGet(route, {}, headers, tags);
+  res = testGet(getRoute, {}, headers, tags);
   assert(res, currentFeature, config, {
     [`${currentTest} should return 200`]: (r) => r.status === 200,
   });
