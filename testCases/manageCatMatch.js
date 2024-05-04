@@ -355,7 +355,7 @@ function generateCatMatch(config, currentFeature, headers, tags) {
   const getRoute = `${__ENV.BASE_URL}/v1/cat`;
 
   let currentTest = 'get all cats that owned';
-  let res = testGet(getRoute, { owned: true, limit: 1000, offset: 0 }, headers, tags);
+  let res = testGet(getRoute, { owned: true, limit: 1000, offset: 0, sex: "male"  }, headers, tags);
   assert(res, currentFeature, config, {
     [`${currentTest} should return 200`]: (r) => r.status === 200,
   }, { owned: true });
@@ -364,7 +364,7 @@ function generateCatMatch(config, currentFeature, headers, tags) {
 
 
   currentTest = 'get all cats that is not owned';
-  res = testGet(getRoute, { owned: false, limit: 1000, offset: 0 }, headers, tags);
+  res = testGet(getRoute, { owned: false, limit: 1000, offset: 0, sex: "female"  }, headers, tags);
   assert(res, currentFeature, config, {
     [`${currentTest} should return 200`]: (r) => r.status === 200,
   }, { owned: false, limit: 1000, offset: 0 });
