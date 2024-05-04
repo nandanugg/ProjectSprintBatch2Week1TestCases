@@ -342,15 +342,17 @@ export default function () {
 
 
     } else {
-        const users = []
+        let user;
         for (let index = 0; index < 3; index++) {
             user = TestRegistration(config);
             user = TestLogin(config, user);
-            users.push(user)
-            let cat = TestPostManageCat(config, user);
-            TestGetManageCat(config, user, cat);
-            TestPutManageCat(config, user);
-            TestDeleteManageCat(config, user);
+            usersKv[user.email] = user
+            if (index > 1) {
+                let cat = TestPostManageCat(config, user, usersKv.getRandomUser());
+                TestGetManageCat(config, user, cat);
+                TestPutManageCat(config, user);
+                TestDeleteManageCat(config, user);
+            }
         }
         console.log("user credentials:", user)
 
