@@ -420,7 +420,7 @@ export function TestPostManageCatApprove(config, user, user2, tags = {}) {
       [`${currentTest} should return 404`]: (r) => r.status === 404,
     });
   }
-  generateCatMatch(config, currentFeature, {
+  generateCatMatch(config, currentFeature, headers, {
     Authorization: `Bearer ${user2.accessToken}`,
   }, headers, tags);
 
