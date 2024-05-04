@@ -181,7 +181,7 @@ export function TestGetManageCatMatch(config, user, tags = {}) {
   const route = `${__ENV.BASE_URL}/v1/cat/match`;
   // eslint-disable-next-line no-undef
   const getRoute = `${__ENV.BASE_URL}/v1/cat`;
-  const currentFeature = `${TEST_NAME} | get manage cat h`;
+  const currentFeature = `${TEST_NAME} | get manage cat match`;
   if (!user) fail(`${currentFeature} fail due to user is empty`);
 
   const headers = {
@@ -290,6 +290,8 @@ export function TestDeleteManageCatMatch(config, user, tags = {}) {
   const getRoute = `${__ENV.BASE_URL}/v1/cat/match`;
   const currentFeature = `${TEST_NAME} | delete manage cat`;
   if (!user) fail(`${currentFeature} fail due to user is empty`);
+
+  // add new match nere
 
   currentTest = 'get all match cats';
   res = testGet(getRoute, {}, headers, tags);
@@ -427,8 +429,14 @@ export function TestPostManageCatApprove(config, user, tags = {}) {
       [`${currentTest} should return 404`]: (r) => r.status === 404,
     });
   }
-
-  generateCatMatch(config, currentFeature, headers, tags);
+  if (!config.LOAD_TEST) {
+    generateCatMatch(config, currentFeature, headers, tags);
+    generateCatMatch(config, currentFeature, headers, tags);
+    generateCatMatch(config, currentFeature, headers, tags);
+    generateCatMatch(config, currentFeature, headers, tags);
+  } else {
+    generateCatMatch(config, currentFeature, headers, tags);
+  }
 
   currentTest = 'get all match cats';
   res = testGet(getRoute, {}, headers, tags);
