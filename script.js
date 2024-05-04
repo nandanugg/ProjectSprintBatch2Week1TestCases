@@ -342,9 +342,11 @@ export default function () {
 
 
     } else {
+        const users = []
         for (let index = 0; index < 3; index++) {
             user = TestRegistration(config);
             user = TestLogin(config, user);
+            users.push(user)
             let cat = TestPostManageCat(config, user);
             TestGetManageCat(config, user, cat);
             TestPutManageCat(config, user);
@@ -355,7 +357,7 @@ export default function () {
         TestPostManageCatMatch(config, user);
         TestGetManageCatMatch(config, user);
         TestDeleteManageCatMatch(config, user);
-        TestPostManageCatApprove(config, user);
+        TestPostManageCatApprove(config, users[2], {}, users[1]);
         TestPostManageCatReject(config, user);
     }
 }

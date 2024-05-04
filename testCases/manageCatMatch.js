@@ -396,7 +396,7 @@ function generateCatMatch(config, currentFeature, headers, tags) {
  * @param {User} user
  * @param {Object} tags
  */
-export function TestPostManageCatApprove(config, user, tags = {}) {
+export function TestPostManageCatApprove(config, user, tags = {}, user2) {
   let res, currentTest;
   // eslint-disable-next-line no-undef
   const getRoute = `${__ENV.BASE_URL}/v1/cat/match`;
@@ -432,10 +432,16 @@ export function TestPostManageCatApprove(config, user, tags = {}) {
     });
   }
   if (!config.LOAD_TEST) {
-    generateCatMatch(config, currentFeature, headers, tags);
-    generateCatMatch(config, currentFeature, headers, tags);
+    generateCatMatch(config, currentFeature, {
+      Authorization: `Bearer ${user2.accessToken}`,
+    }, tags);
+    generateCatMatch(config, currentFeature, {
+      Authorization: `Bearer ${user2.accessToken}`,
+    }, tags);
   } else {
-    generateCatMatch(config, currentFeature, headers, tags);
+    generateCatMatch(config, currentFeature, {
+      Authorization: `Bearer ${user2.accessToken}`,
+    }, tags);
   }
 
   currentTest = 'get all match cats';
