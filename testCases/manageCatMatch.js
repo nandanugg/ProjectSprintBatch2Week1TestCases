@@ -332,7 +332,7 @@ function generateCatMatch(config, currentFeature, userHeader, otherUserHeader, t
   let res = testGet(getRoute, { owned: true, limit: 1000, offset: 0 }, otherUserHeader, tags);
   assert(res, currentFeature, config, {
     [`${currentTest} should return 200`]: (r) => r.status === 200,
-  }, { owned: true });
+  }, { owned: true, otherUserHeader });
   /** @type {Cat[]} */
   const notOwnedCats = res.json().data;
   if (notOwnedCats.length === 0) {
@@ -349,7 +349,7 @@ function generateCatMatch(config, currentFeature, userHeader, otherUserHeader, t
       res = testPostJson(route, positivePayload, otherUserHeader, tags);
       assert(res, currentFeature, config, {
         [`${currentTest} should return 201`]: (r) => r.status === 201,
-      }, positivePayload);
+      }, Object.assign(positivePayload, { otherUserHeader }));
     }
   }
 
@@ -358,7 +358,7 @@ function generateCatMatch(config, currentFeature, userHeader, otherUserHeader, t
   res = testGet(getRoute, { owned: true, limit: 1000, offset: 0 }, userHeader, tags); // todo: kebalik ini harusnya yg owned
   assert(res, currentFeature, config, {
     [`${currentTest} should return 200`]: (r) => r.status === 200,
-  }, { owned: true, limit: 1000, offset: 0 });
+  }, { owned: true, limit: 1000, offset: 0, userHeader });
   /** @type {Cat[]} */
   const ownedCats = res.json().data;
 
@@ -375,7 +375,7 @@ function generateCatMatch(config, currentFeature, userHeader, otherUserHeader, t
     [`${currentTest} should return 201`]: (r) => r.status === 201,
   }, positivePayload);
 
-  return [ownedCats, notOwnedCats, payload]
+  return [ownedCats, notOwnedCats, positivePayload]
 }
 
 
