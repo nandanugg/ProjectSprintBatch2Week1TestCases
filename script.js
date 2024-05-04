@@ -15,16 +15,19 @@ export const options = {
 // eslint-disable-next-line no-undef
 if (__ENV.LOAD_TEST) {
     options.stages.push(
-        { duration: '10s', target: 50 },
-        { duration: '10s', target: 100 },
-        { duration: '10s', target: 150 },
-        { duration: '10s', target: 200 },
-        { duration: '10s', target: 250 },
-        { duration: '10s', target: 300 },
-        { duration: '10s', target: 600 }
+        { target: 50, iterations: 1, duration: "15s" },
+        { target: 100, iterations: 1, duration: "15s" },
+        { target: 150, iterations: 1, duration: "30s" },
+        { target: 200, iterations: 1, duration: "50s" },
+        { target: 250, iterations: 1, duration: "1m" },
+        { target: 300, iterations: 1, duration: "1m" },
+        { target: 600, iterations: 1, duration: "1m" }
     );
 } else {
-    options.stages.push({ duration: '10s', target: 1 });
+    options.stages.push({
+        target: 1,
+        iterations: 1
+    });
 }
 const positiveCaseConfig = Object.assign(config, {
     POSITIVE_CASE: true
