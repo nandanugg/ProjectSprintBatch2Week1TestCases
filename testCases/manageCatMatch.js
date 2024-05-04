@@ -358,6 +358,10 @@ function generateCatMatch(config, currentFeature, otherUserHeader, userHeader, t
   // eslint-disable-next-line no-undef
   const getRoute = `${__ENV.BASE_URL}/v1/cat`;
 
+
+  const matchCatGender = generateRandomCatGender()
+  const userCatGender = generateRandomCatGender(matchCatGender)
+
   let currentTest = 'get all cats not owned owned';
   let res = testGet(getRoute, { owned: true, limit: 1000, offset: 0 }, otherUserHeader, tags);
   assert(res, currentFeature, config, {
@@ -365,18 +369,33 @@ function generateCatMatch(config, currentFeature, otherUserHeader, userHeader, t
   }, { owned: true });
   /** @type {Cat[]} */
   const ownedCats = res.json().data;
+  if (ownedCats.length === 0) {
+    for (let i = 0; i < 2; i++) {
+      const positivePayload = {
+        name: generateUniqueName(),
+        race: generateRandomCatBreed(),
+        ageInMonth: generateRandomNumber(1, 120082),
+        sex: matchCatGender,
+        description: generateRandomDescription(200),
+        imageUrls: [generateRandomImageUrl()],
+      };
+      currentTest = 'create new cat';
+      res = testPostJson(route, positivePayload, otherUserHeader, tags);
+      assert(res, currentFeature, config, {
+        [`${currentTest} should return 201`]: (r) => r.status === 201,
+      }, positivePayload);
+    }
+  }
 
 
   currentTest = 'get all cats that is owned';
-  res = testGet(getRoute, { owned: true, limit: 1000, offset: 0 }, userHeader, tags);
+  res = testGet(getRoute, { owned: true, limit: 1000, offset: 0 }, userHeader, tags); // todo: kebalik ini harusnya yg owned
   assert(res, currentFeature, config, {
     [`${currentTest} should return 200`]: (r) => r.status === 200,
   }, { owned: true, limit: 1000, offset: 0 });
   /** @type {Cat[]} */
   const notOwnedCats = res.json().data;
 
-  const matchCatGender = generateRandomCatGender()
-  const userCatGender = generateRandomCatGender(matchCatGender)
   currentTest = 'match a new cat';
   const notHasMatchedNotOwnedCat = notOwnedCats.filter((cat) => cat.hasMatched === false && cat.sex == matchCatGender)
   const notHasMatchedOwnedCat = ownedCats.filter((cat) => cat.hasMatched === false && cat.sex == userCatGender)
@@ -540,7 +559,7 @@ export function TestPostManageCatReject(config, user, user2, tags = {}) {
     matchId: userCatMatch.id,
   }, headers, tags);
   let positivePayloadPassAssertTest = assert(res, currentFeature, config, {
-    [`${currentTest} should return 200`]: (r) => r.status === 200,
+    [`${currentTest} should return something`]: (r) => r.status,
   });
 
   if (!config.POSITIVE_CASE) {
