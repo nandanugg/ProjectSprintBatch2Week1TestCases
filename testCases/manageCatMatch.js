@@ -453,6 +453,8 @@ export function TestPostManageCatApprove(config, user, tags = {}) {
   }, headers, tags);
   let positivePayloadPassAssertTest = assert(res, currentFeature, config, {
     [`${currentTest} should return 200`]: (r) => r.status === 200,
+  }, {
+    matchId: userCatMatch.id,
   });
 
   if (!config.POSITIVE_CASE) {
