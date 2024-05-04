@@ -445,7 +445,9 @@ export function TestPostManageCatApprove(config, user, tags = {}) {
   let userCatMatch
   userCatMatch = res.json().data.find(
     /** @param {CatMatch} match */
-    (match) => match.userCatDetail.hasMatched === false && match.matchCatDetail.hasMatched === false);
+    (match) => match.userCatDetail.hasMatched === false
+      && match.issuedBy.email == user.email
+      && match.matchCatDetail.hasMatched === false);
 
   currentTest = 'match cat approve'
   res = testPostJson(route, {
