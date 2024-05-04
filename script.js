@@ -345,7 +345,7 @@ export default function () {
         for (let index = 0; index < 3; index++) {
             user = TestRegistration(config);
             user = TestLogin(config, user);
-
+            console.log("user credentials:", user)
             let cat = TestPostManageCat(config, user);
             TestGetManageCat(config, user, cat);
             TestPutManageCat(config, user);
