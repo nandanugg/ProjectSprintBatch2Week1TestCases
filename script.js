@@ -35,12 +35,19 @@ const positiveCaseConfig = Object.assign(config, {
 
 const usersKv = {
     getRandomUser() {
+        if (Object.keys(usersKv).length === this.usedKeys.length) {
+            return {
+                "accessToken": "user is empty"
+            }
+        }
+
         const keys = Object.keys(usersKv)
         const i = generateRandomNumber(0, keys.length - 1)
         if (!this.usedKeys.includes(keys[i])) {
             this.usedKeys.push(keys[i])
             return this[keys[i]]
         }
+
         return this.getRandomUser()
     },
     clearUsedKeys() {
