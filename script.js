@@ -356,8 +356,8 @@ export default function () {
 
         TestPostManageCatMatch(config, user);
         TestGetManageCatMatch(config, user);
-        TestDeleteManageCatMatch(config, user);
-        TestPostManageCatApprove(config, users[2], {}, users[1]);
-        TestPostManageCatReject(config, users[2], {}, users[1]);
+        TestDeleteManageCatMatch(config, users[2], users[1],);
+        TestPostManageCatApprove(config, users[2], users[1], {});
+        TestPostManageCatReject(config, users[2], users[1], {});
     }
 }

@@ -280,7 +280,7 @@ export function TestGetManageCatMatch(config, user, tags = {}) {
  * @param {User} user
  * @param {Object} tags
  */
-export function TestDeleteManageCatMatch(config, user, tags = {}) {
+export function TestDeleteManageCatMatch(config, user, user2, tags = {}) {
   let res, currentTest;
 
   const headers = {
@@ -291,7 +291,9 @@ export function TestDeleteManageCatMatch(config, user, tags = {}) {
   const currentFeature = `${TEST_NAME} | delete manage cat`;
   if (!user) fail(`${currentFeature} fail due to user is empty`);
 
-  generateCatMatch(config, currentFeature, headers, tags);
+  generateCatMatch(config, currentFeature, {
+    Authorization: `Bearer ${user2.accessToken}`,
+  }, headers, tags);
 
   currentTest = 'get all match cats';
   res = testGet(getRoute, {}, headers, tags);
@@ -347,17 +349,17 @@ export function TestDeleteManageCatMatch(config, user, tags = {}) {
  * Generate new cat match
  * @param {Config} config 
  * @param {string} currentFeature 
- * @param {Object} headers 
+ * @param {Object} otherUserHeader 
  * @param {Object} tags 
  */
-function generateCatMatch(config, currentFeature, headers, headers2, tags) {
+function generateCatMatch(config, currentFeature, otherUserHeader, userHeader, tags) {
   // eslint-disable-next-line no-undef
   const route = `${__ENV.BASE_URL}/v1/cat/match`;
   // eslint-disable-next-line no-undef
   const getRoute = `${__ENV.BASE_URL}/v1/cat`;
 
-  let currentTest = 'get all cats that owned';
-  let res = testGet(getRoute, { owned: true, limit: 1000, offset: 0 }, headers, tags);
+  let currentTest = 'get all cats not owned owned';
+  let res = testGet(getRoute, { owned: true, limit: 1000, offset: 0 }, otherUserHeader, tags);
   assert(res, currentFeature, config, {
     [`${currentTest} should return 200`]: (r) => r.status === 200,
   }, { owned: true });
@@ -365,8 +367,8 @@ function generateCatMatch(config, currentFeature, headers, headers2, tags) {
   const ownedCats = res.json().data;
 
 
-  currentTest = 'get all cats that is not owned';
-  res = testGet(getRoute, { owned: true, limit: 1000, offset: 0 }, headers2, tags);
+  currentTest = 'get all cats that is owned';
+  res = testGet(getRoute, { owned: true, limit: 1000, offset: 0 }, userHeader, tags);
   assert(res, currentFeature, config, {
     [`${currentTest} should return 200`]: (r) => r.status === 200,
   }, { owned: true, limit: 1000, offset: 0 });
@@ -383,7 +385,7 @@ function generateCatMatch(config, currentFeature, headers, headers2, tags) {
     userCatId: notHasMatchedOwnedCat[generateRandomNumber(0, notHasMatchedOwnedCat.length - 1)].id,
     message: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
   };
-  res = testPostJson(route, positivePayload, headers, tags);
+  res = testPostJson(route, positivePayload, otherUserHeader, tags);
   assert(res, currentFeature, config, {
     [`${currentTest} should return 201`]: (r) => r.status === 201,
   }, positivePayload);
@@ -396,7 +398,7 @@ function generateCatMatch(config, currentFeature, headers, headers2, tags) {
  * @param {User} user
  * @param {Object} tags
  */
-export function TestPostManageCatApprove(config, user, tags = {}, user2) {
+export function TestPostManageCatApprove(config, user, user2, tags = {}) {
   let res, currentTest;
   // eslint-disable-next-line no-undef
   const getRoute = `${__ENV.BASE_URL}/v1/cat/match`;
@@ -483,7 +485,7 @@ export function TestPostManageCatApprove(config, user, tags = {}, user2) {
  * @param {User} user
  * @param {Object} tags
  */
-export function TestPostManageCatReject(config, user, tags = {}, user2) {
+export function TestPostManageCatReject(config, user, user2, tags = {}) {
   let res, currentTest;
   // eslint-disable-next-line no-undef
   const getRoute = `${__ENV.BASE_URL}/v1/cat/match`;
