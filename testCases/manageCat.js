@@ -180,7 +180,7 @@ export function TestGetManageCat(config, user, cat, tags = {}) {
 
 
   const middleAgeInMonth = generateRandomNumber(3, 120080);
-  if (!config.SKIP_PREP_DATA) {
+  if (!config.GACHA) {
     const positivePayload = (ageInMonth, gender) => ({
       name: generateUniqueName(),
       race: generateRandomCatBreed(),

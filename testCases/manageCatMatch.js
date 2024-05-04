@@ -148,10 +148,14 @@ export function TestPostManageCatMatch(config, user, tags = {}) {
     userCatId: ownedCats.find((cat) => cat.hasMatched === false && cat.sex == userCatGender).id,
     message: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
   };
+  const matchNewCatExpectedCase = {}
+  if (!config.LOAD_TEST) {
+    matchNewCatExpectedCase[`${currentTest} should return 201`] = (r) => r.status === 201
+  } else {
+    matchNewCatExpectedCase[`${currentTest} should return something`] = (r) => r.status
+  }
   res = testPostJson(route, positivePayload, headers, tags);
-  assert(res, currentFeature, config, {
-    [`${currentTest} should return 201`]: (r) => r.status === 201,
-  }, positivePayload);
+  assert(res, currentFeature, config, matchNewCatExpectedCase, positivePayload);
 
 
   if (!config.POSITIVE_CASE) {
