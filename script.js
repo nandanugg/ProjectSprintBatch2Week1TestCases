@@ -93,16 +93,16 @@ export default function () {
                 TestDeleteManageCatMatch(positiveCaseConfig, user)
             }
             if (percentageVUs80) {
-                TestPostManageCatApprove(positiveCaseConfig)
+                TestPostManageCatApprove(positiveCaseConfig, user)
             } else {
-                TestPostManageCatReject(positiveCaseConfig)
+                TestPostManageCatReject(positiveCaseConfig, user)
             }
         }
     } else if (currentTarget === 100) {
         // auth
         user = TestLogin(positiveCaseConfig, usersKv.getRandomUser());
         if (percentageVUs50) {
-            user = TestRegistration(positiveCaseConfig);
+            user = TestRegistration(positiveCaseConfig, user);
             usersKv[user.email] = user
         }
         // manage cat
@@ -117,7 +117,7 @@ export default function () {
             }
             if (percentageVUs90) {
                 TestPostManageCatMatch(positiveCaseConfig, user);
-                TestPostManageCatApprove(positiveCaseConfig)
+                TestPostManageCatApprove(positiveCaseConfig, user)
             }
         }
         // match cat
@@ -128,9 +128,9 @@ export default function () {
                 TestDeleteManageCatMatch(positiveCaseConfig, user)
             }
             if (percentageVUs80) {
-                TestPostManageCatApprove(positiveCaseConfig)
+                TestPostManageCatApprove(positiveCaseConfig, user)
             } else {
-                TestPostManageCatReject(positiveCaseConfig)
+                TestPostManageCatReject(positiveCaseConfig, user)
             }
         }
     } else if (currentTarget === 200) {
@@ -158,9 +158,9 @@ export default function () {
                 TestDeleteManageCatMatch(positiveCaseConfig, user)
             }
             if (percentageVUs80) {
-                TestPostManageCatApprove(positiveCaseConfig)
+                TestPostManageCatApprove(positiveCaseConfig, user)
             } else {
-                TestPostManageCatReject(positiveCaseConfig)
+                TestPostManageCatReject(positiveCaseConfig, user)
             }
         }
 
@@ -182,15 +182,15 @@ export default function () {
             }
             if (percentageVUs80) {
                 if (percentageVUs20) {
-                    TestPostManageCatApprove(config)
+                    TestPostManageCatApprove(config, user)
                 } else {
-                    TestPostManageCatApprove(positiveCaseConfig)
+                    TestPostManageCatApprove(positiveCaseConfig, user)
                 }
             } else {
                 if (percentageVUs10) {
-                    TestPostManageCatReject(config)
+                    TestPostManageCatReject(config, user)
                 } else {
-                    TestPostManageCatReject(positiveCaseConfig)
+                    TestPostManageCatReject(positiveCaseConfig, user)
                 }
             }
         } else if (currentTarget === 300) {
@@ -251,15 +251,15 @@ export default function () {
                 }
                 if (percentageVUs80) {
                     if (percentageVUs20) {
-                        TestPostManageCatApprove(config)
+                        TestPostManageCatApprove(config, user)
                     } else {
-                        TestPostManageCatApprove(positiveCaseConfig)
+                        TestPostManageCatApprove(positiveCaseConfig, user)
                     }
                 } else {
                     if (percentageVUs10) {
-                        TestPostManageCatReject(config)
+                        TestPostManageCatReject(config, user)
                     } else {
-                        TestPostManageCatReject(positiveCaseConfig)
+                        TestPostManageCatReject(positiveCaseConfig, user)
                     }
                 }
             }
@@ -326,15 +326,15 @@ export default function () {
                 }
                 if (percentageVUs80) {
                     if (percentageVUs20) {
-                        TestPostManageCatApprove(config)
+                        TestPostManageCatApprove(config, user)
                     } else {
-                        TestPostManageCatApprove(positiveCaseConfig)
+                        TestPostManageCatApprove(positiveCaseConfig, user)
                     }
                 } else {
                     if (percentageVUs10) {
-                        TestPostManageCatReject(config)
+                        TestPostManageCatReject(config, user)
                     } else {
-                        TestPostManageCatReject(positiveCaseConfig)
+                        TestPostManageCatReject(positiveCaseConfig, user)
                     }
                 }
             }
