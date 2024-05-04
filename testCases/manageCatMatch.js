@@ -291,7 +291,7 @@ export function TestDeleteManageCatMatch(config, user, tags = {}) {
   const currentFeature = `${TEST_NAME} | delete manage cat`;
   if (!user) fail(`${currentFeature} fail due to user is empty`);
 
-  // add new match nere
+  generateCatMatch(config, currentFeature, headers, tags);
 
   currentTest = 'get all match cats';
   res = testGet(getRoute, {}, headers, tags);
