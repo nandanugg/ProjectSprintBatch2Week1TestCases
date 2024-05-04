@@ -33,6 +33,17 @@ const positiveCaseConfig = Object.assign(config, {
     POSITIVE_CASE: true
 })
 
+const users = []
+const usedKeys = []
+function getRandomUser() {
+    const i = generateRandomNumber(0, users.length - 1)
+    if (!usedKeys.includes(i)) {
+        usedKeys.push(i)
+        return users[i]
+    }
+    return getRandomUser()
+}
+
 const usersKv = {
     getRandomUser() {
         if (Object.keys(usersKv).length === this.usedKeys.length) {
@@ -352,19 +363,19 @@ export default function () {
         for (let index = 0; index < 5; index++) {
             let user = TestRegistration(config);
             user = TestLogin(config, user);
-            usersKv[user.email] = user
+            users.push(user);
             let cat = TestPostManageCat(config, user);
             TestGetManageCat(config, user, cat);
             TestPutManageCat(config, user);
             TestDeleteManageCat(config, user);
         }
-        const currentUser = usersKv.getRandomUser()
+        const currentUser = getRandomUser()
         console.log("user credentials:", currentUser)
 
-        TestPostManageCatMatch(config, currentUser, usersKv.getRandomUser());
+        TestPostManageCatMatch(config, currentUser, getRandomUser());
         TestGetManageCatMatch(config, currentUser);
-        TestDeleteManageCatMatch(config, currentUser, usersKv.getRandomUser(),);
-        TestPostManageCatApprove(config, currentUser, usersKv.getRandomUser(), {});
-        TestPostManageCatReject(config, currentUser, usersKv.getRandomUser(), {});
+        TestDeleteManageCatMatch(config, currentUser, getRandomUser(),);
+        TestPostManageCatApprove(config, currentUser, getRandomUser(), {});
+        TestPostManageCatReject(config, currentUser, getRandomUser(), {});
     }
 }
