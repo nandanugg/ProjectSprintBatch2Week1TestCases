@@ -354,7 +354,7 @@ export default function () {
         const currentUser = usersKv.getRandomUser()
         console.log("user credentials:", currentUser)
 
-        TestPostManageCatMatch(config, currentUser);
+        TestPostManageCatMatch(config, currentUser, usersKv.getRandomUser());
         TestGetManageCatMatch(config, currentUser);
         TestDeleteManageCatMatch(config, currentUser, usersKv.getRandomUser(),);
         TestPostManageCatApprove(config, currentUser, usersKv.getRandomUser(), {});
