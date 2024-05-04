@@ -434,6 +434,7 @@ export function TestPostManageCatApprove(config, user, tags = {}, user2) {
   generateCatMatch(config, currentFeature, {
     Authorization: `Bearer ${user2.accessToken}`,
   }, headers, tags);
+
   currentTest = 'get all match cats';
   res = testGet(getRoute, {}, headers, tags);
   assert(res, currentFeature, config, {
@@ -482,7 +483,7 @@ export function TestPostManageCatApprove(config, user, tags = {}, user2) {
  * @param {User} user
  * @param {Object} tags
  */
-export function TestPostManageCatReject(config, user, tags = {}) {
+export function TestPostManageCatReject(config, user, tags = {}, user2) {
   let res, currentTest;
   // eslint-disable-next-line no-undef
   const getRoute = `${__ENV.BASE_URL}/v1/cat/match`;
@@ -517,8 +518,9 @@ export function TestPostManageCatReject(config, user, tags = {}) {
       [`${currentTest} should return 404`]: (r) => r.status === 404,
     });
   }
-
-  generateCatMatch(config, currentFeature, headers, tags);
+  generateCatMatch(config, currentFeature, {
+    Authorization: `Bearer ${user2.accessToken}`,
+  }, headers, tags);
 
   currentTest = 'get all match cats';
   res = testGet(getRoute, {}, headers, tags);
