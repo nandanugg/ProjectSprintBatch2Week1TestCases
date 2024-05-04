@@ -431,19 +431,9 @@ export function TestPostManageCatApprove(config, user, tags = {}, user2) {
       [`${currentTest} should return 404`]: (r) => r.status === 404,
     });
   }
-  if (!config.LOAD_TEST) {
-    generateCatMatch(config, currentFeature, {
-      Authorization: `Bearer ${user2.accessToken}`,
-    }, headers, tags);
-    generateCatMatch(config, currentFeature, {
-      Authorization: `Bearer ${user2.accessToken}`,
-    }, headers, tags);
-  } else {
-    generateCatMatch(config, currentFeature, {
-      Authorization: `Bearer ${user2.accessToken}`,
-    }, headers, tags);
-  }
-
+  generateCatMatch(config, currentFeature, {
+    Authorization: `Bearer ${user2.accessToken}`,
+  }, headers, tags);
   currentTest = 'get all match cats';
   res = testGet(getRoute, {}, headers, tags);
   assert(res, currentFeature, config, {
