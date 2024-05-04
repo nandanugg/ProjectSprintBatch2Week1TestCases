@@ -432,8 +432,6 @@ export function TestPostManageCatApprove(config, user, tags = {}) {
   if (!config.LOAD_TEST) {
     generateCatMatch(config, currentFeature, headers, tags);
     generateCatMatch(config, currentFeature, headers, tags);
-    generateCatMatch(config, currentFeature, headers, tags);
-    generateCatMatch(config, currentFeature, headers, tags);
   } else {
     generateCatMatch(config, currentFeature, headers, tags);
   }
