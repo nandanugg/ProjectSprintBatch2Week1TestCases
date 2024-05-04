@@ -465,8 +465,6 @@ export function TestPostManageCatApprove(config, user, tags = {}) {
   }
 
   if (!positivePayloadPassAssertTest) return null;
-
-  return res.json().data;
 }
 
 
