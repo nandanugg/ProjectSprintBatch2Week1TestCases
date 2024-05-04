@@ -376,9 +376,11 @@ function generateCatMatch(config, currentFeature, headers, tags) {
   const matchCatGender = generateRandomCatGender()
   const userCatGender = generateRandomCatGender(matchCatGender)
   currentTest = 'match a new cat';
+  const notHasMatchedNotOwnedCat = notOwnedCats.filter((cat) => cat.hasMatched === false && cat.sex == matchCatGender)
+  const notHasMatchedOwnedCat = ownedCats.filter((cat) => cat.hasMatched === false && cat.sex == userCatGender)
   const positivePayload = {
-    matchCatId: notOwnedCats.find((cat) => cat.hasMatched === false && cat.sex == matchCatGender).id,
-    userCatId: ownedCats.find((cat) => cat.hasMatched === false && cat.sex == userCatGender).id,
+    matchCatId: notHasMatchedNotOwnedCat[generateRandomNumber(0, notHasMatchedNotOwnedCat.length - 1)].id,
+    userCatId: notHasMatchedNotOwnedCat[generateRandomNumber(0, notHasMatchedOwnedCat.length - 1)].id,
     message: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
   };
   res = testPostJson(route, positivePayload, headers, tags);
