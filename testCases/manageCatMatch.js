@@ -447,7 +447,7 @@ export function TestPostManageCatApprove(config, user, user2, tags = {}) {
   }
   generateCatMatch(config, currentFeature, headers, {
     Authorization: `Bearer ${user2.accessToken}`,
-  }, tags, false);
+  }, tags);
 
   currentTest = 'get all match cats';
   res = testGet(getRoute, {}, headers, tags);
