@@ -359,6 +359,7 @@ function generateCatMatch(config, currentFeature, userHeader, otherUserHeader, t
     /** @type {Cat[]} */
     notOwnedCats = res.json().data;
   }
+  notOwnedCats = notOwnedCats.filter((cat) => cat.hasMatched === false)
 
 
   currentTest = 'get all cats that is owned';
@@ -367,7 +368,8 @@ function generateCatMatch(config, currentFeature, userHeader, otherUserHeader, t
     [`${currentTest} should return 200`]: (r) => r.status === 200,
   }, { owned: true, limit: 1000, offset: 0, userHeader });
   /** @type {Cat[]} */
-  const ownedCats = res.json().data;
+  let ownedCats = res.json().data;
+  ownedCats = ownedCats.filter((cat) => cat.hasMatched === false)
 
   currentTest = 'match a new cat';
   const notHasMatchedNotOwnedCat = notOwnedCats.filter((cat) => cat.hasMatched === false && cat.sex == matchCatGender)
