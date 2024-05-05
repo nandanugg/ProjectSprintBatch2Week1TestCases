@@ -37,6 +37,10 @@ const positiveCaseConfig = Object.assign(config, {
 const users = []
 const usedKeys = []
 function getRandomUser() {
+    if (users.length === 0 || usedKeys.length === users.length) {
+        return null;
+    }
+
     const i = generateRandomNumber(0, users.length - 1)
     if (!usedKeys.includes(i)) {
         usedKeys.push(i)
@@ -91,7 +95,7 @@ export default function () {
             currentUser = TestLogin(positiveCaseConfig, currentUser);
         }
         // manage cat
-        if (percentageVUs80) {
+        if (percentageVUs50) {
             let cat = TestPostManageCat(positiveCaseConfig, currentUser);
             TestGetManageCat(positiveCaseConfig, currentUser, cat);
             if (percentageVUs60) {
@@ -105,16 +109,16 @@ export default function () {
             }
         }
         // match cat
-        if (percentageVUs90) {
+        if (percentageVUs50) {
             TestPostManageCatMatch(positiveCaseConfig, currentUser, getRandomUser());
             TestGetManageCatMatch(positiveCaseConfig, currentUser);
             if (percentageVUs30) {
                 TestDeleteManageCatMatch(positiveCaseConfig, currentUser, getRandomUser())
             }
             if (percentageVUs80) {
-                // TestPostManageCatApprove(positiveCaseConfig, currentUser, getRandomUser())
+                TestPostManageCatApprove(positiveCaseConfig, currentUser, getRandomUser())
             } else {
-                // TestPostManageCatReject(positiveCaseConfig, currentUser, getRandomUser())
+                TestPostManageCatReject(positiveCaseConfig, currentUser, getRandomUser())
             }
         }
     } else if (currentTarget === 100) {
@@ -125,7 +129,7 @@ export default function () {
             users.push(currentUser)
         }
         // manage cat
-        if (percentageVUs80) {
+        if (percentageVUs60) {
             let cat = TestPostManageCat(config, currentUser);
             TestGetManageCat(config, currentUser, cat);
             if (percentageVUs50) {
@@ -136,20 +140,20 @@ export default function () {
             }
             if (percentageVUs90) {
                 TestPostManageCatMatch(positiveCaseConfig, currentUser, getRandomUser());
-                // TestPostManageCatApprove(positiveCaseConfig, currentUser, getRandomUser())
+                TestPostManageCatApprove(positiveCaseConfig, currentUser, getRandomUser())
             }
         }
         // match cat
-        if (percentageVUs90) {
+        if (percentageVUs60) {
             TestPostManageCatMatch(positiveCaseConfig, currentUser, getRandomUser());
             TestGetManageCatMatch(positiveCaseConfig, currentUser);
             if (percentageVUs30) {
                 TestDeleteManageCatMatch(positiveCaseConfig, currentUser, getRandomUser())
             }
             if (percentageVUs80) {
-                // TestPostManageCatApprove(positiveCaseConfig, currentUser, getRandomUser())
+                TestPostManageCatApprove(positiveCaseConfig, currentUser, getRandomUser())
             } else {
-                // TestPostManageCatReject(positiveCaseConfig, currentUser, getRandomUser())
+                TestPostManageCatReject(positiveCaseConfig, currentUser, getRandomUser())
             }
         }
     } else if (currentTarget === 200) {
@@ -177,9 +181,9 @@ export default function () {
                 TestDeleteManageCatMatch(positiveCaseConfig, currentUser, getRandomUser())
             }
             if (percentageVUs80) {
-                // TestPostManageCatApprove(positiveCaseConfig, currentUser, getRandomUser())
+                TestPostManageCatApprove(positiveCaseConfig, currentUser, getRandomUser())
             } else {
-                // TestPostManageCatReject(positiveCaseConfig, currentUser, getRandomUser())
+                TestPostManageCatReject(positiveCaseConfig, currentUser, getRandomUser())
             }
         }
 
@@ -201,15 +205,15 @@ export default function () {
             }
             if (percentageVUs80) {
                 if (percentageVUs20) {
-                    // TestPostManageCatApprove(config, currentUser, getRandomUser())
+                    TestPostManageCatApprove(config, currentUser, getRandomUser())
                 } else {
-                    // TestPostManageCatApprove(positiveCaseConfig, currentUser, getRandomUser())
+                    TestPostManageCatApprove(positiveCaseConfig, currentUser, getRandomUser())
                 }
             } else {
                 if (percentageVUs10) {
-                    // TestPostManageCatReject(config, currentUser, getRandomUser())
+                    TestPostManageCatReject(config, currentUser, getRandomUser())
                 } else {
-                    // TestPostManageCatReject(positiveCaseConfig, currentUser, getRandomUser())
+                    TestPostManageCatReject(positiveCaseConfig, currentUser, getRandomUser())
                 }
             }
         } else if (currentTarget === 300) {
@@ -270,15 +274,15 @@ export default function () {
                 }
                 if (percentageVUs80) {
                     if (percentageVUs20) {
-                        // TestPostManageCatApprove(config, currentUser, getRandomUser())
+                        TestPostManageCatApprove(config, currentUser, getRandomUser())
                     } else {
-                        // TestPostManageCatApprove(positiveCaseConfig, currentUser, getRandomUser())
+                        TestPostManageCatApprove(positiveCaseConfig, currentUser, getRandomUser())
                     }
                 } else {
                     if (percentageVUs10) {
-                        // TestPostManageCatReject(config, currentUser, getRandomUser())
+                        TestPostManageCatReject(config, currentUser, getRandomUser())
                     } else {
-                        // TestPostManageCatReject(positiveCaseConfig, currentUser, getRandomUser())
+                        TestPostManageCatReject(positiveCaseConfig, currentUser, getRandomUser())
                     }
                 }
             }
@@ -345,15 +349,15 @@ export default function () {
                 }
                 if (percentageVUs80) {
                     if (percentageVUs20) {
-                        // TestPostManageCatApprove(config, currentUser, getRandomUser())
+                        TestPostManageCatApprove(config, currentUser, getRandomUser())
                     } else {
-                        // TestPostManageCatApprove(positiveCaseConfig, currentUser, getRandomUser())
+                        TestPostManageCatApprove(positiveCaseConfig, currentUser, getRandomUser())
                     }
                 } else {
                     if (percentageVUs10) {
-                        // TestPostManageCatReject(config, currentUser, getRandomUser())
+                        TestPostManageCatReject(config, currentUser, getRandomUser())
                     } else {
-                        // TestPostManageCatReject(positiveCaseConfig, currentUser, getRandomUser())
+                        TestPostManageCatReject(positiveCaseConfig, currentUser, getRandomUser())
                     }
                 }
             }
@@ -361,7 +365,7 @@ export default function () {
 
 
     } else {
-        for (let index = 0; index < 5; index++) {
+        for (let index = 0; index < 8; index++) {
             let user = TestRegistration(config);
             user = TestLogin(config, user);
             users.push(user);
@@ -373,10 +377,10 @@ export default function () {
         const currentUser = getRandomUser()
         console.log("user credentials:", currentUser)
 
-        TestPostManageCatMatch(config, getRandomUser(), currentUser, getRandomUser());
+        TestPostManageCatMatch(config, currentUser, getRandomUser());
         TestGetManageCatMatch(config, currentUser);
         TestDeleteManageCatMatch(config, currentUser, getRandomUser(),);
-        // TestPostManageCatApprove(config, currentUser, getRandomUser(), {});
-        // TestPostManageCatReject(config, currentUser, getRandomUser(), {});
+        TestPostManageCatApprove(config, currentUser, getRandomUser(), {});
+        TestPostManageCatReject(config, currentUser, getRandomUser(), {});
     }
 }
