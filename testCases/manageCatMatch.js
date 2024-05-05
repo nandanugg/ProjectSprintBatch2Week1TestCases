@@ -334,7 +334,7 @@ function generateCatMatch(config, currentFeature, userHeader, otherUserHeader, t
     [`${currentTest} should return 200`]: (r) => r.status === 200,
   }, { owned: true, otherUserHeader });
   /** @type {Cat[]} */
-  const notOwnedCats = res.json().data;
+  let notOwnedCats = res.json().data;
   if (notOwnedCats.length === 0) {
     for (let i = 0; i < 2; i++) {
       const positivePayload = {
@@ -351,6 +351,13 @@ function generateCatMatch(config, currentFeature, userHeader, otherUserHeader, t
         [`${currentTest} should return 201`]: (r) => r.status === 201,
       }, Object.assign(positivePayload, { otherUserHeader }));
     }
+    let currentTest = 'get all cats not owned';
+    let res = testGet(getRoute, { owned: true, limit: 1000, offset: 0 }, otherUserHeader, tags);
+    assert(res, currentFeature, config, {
+      [`${currentTest} should return 200`]: (r) => r.status === 200,
+    }, { owned: true, otherUserHeader });
+    /** @type {Cat[]} */
+    notOwnedCats = res.json().data;
   }
 
 
