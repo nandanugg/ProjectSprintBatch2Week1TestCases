@@ -370,7 +370,7 @@ function generateCatMatch(config, currentFeature, userHeader, otherUserHeader, t
     userCatId: notHasMatchedOwnedCat[generateRandomNumber(0, notHasMatchedOwnedCat.length - 1)].id,
     message: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
   };
-  res = testPostJson(route, positivePayload, otherUserHeader, tags);
+  res = testPostJson(route, positivePayload, userHeader, tags);
   assert(res, currentFeature, config, {
     [`${currentTest} should return 201`]: (r) => r.status === 201,
   }, positivePayload);
