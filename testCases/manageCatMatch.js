@@ -447,14 +447,13 @@ export function TestPostManageCatApprove(config, user, user2, tags = {}) {
   }
   generateCatMatch(config, currentFeature, headers, {
     Authorization: `Bearer ${user2.accessToken}`,
-  }, headers, tags);
+  }, headers, tags, false);
 
   currentTest = 'get all match cats';
   res = testGet(getRoute, {}, headers, tags);
   assert(res, currentFeature, config, {
     [`${currentTest} should return 200`]: (r) => r.status === 200,
   });
-
   let userCatMatch
   userCatMatch = res.json().data.find(
     /** @param {CatMatch} match */
