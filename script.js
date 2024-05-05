@@ -85,7 +85,7 @@ export default function () {
     if (currentTarget === 50) {
         // auth
         currentUser = TestRegistration(positiveCaseConfig);
-        usersKv[currentUser.email] = currentUser
+        users.push(currentUser)
         if (percentageVUs20) {
             currentUser = TestLogin(positiveCaseConfig, currentUser);
         }
@@ -100,28 +100,28 @@ export default function () {
                 }
             }
             if (percentageVUs90) {
-                TestPostManageCatMatch(positiveCaseConfig, currentUser);
+                TestPostManageCatMatch(positiveCaseConfig, currentUser, getRandomUser());
             }
         }
         // match cat
         if (percentageVUs90) {
-            TestPostManageCatMatch(positiveCaseConfig, currentUser);
+            TestPostManageCatMatch(positiveCaseConfig, currentUser, getRandomUser());
             TestGetManageCatMatch(positiveCaseConfig, currentUser);
             if (percentageVUs30) {
-                TestDeleteManageCatMatch(positiveCaseConfig, currentUser, usersKv.getRandomUser())
+                TestDeleteManageCatMatch(positiveCaseConfig, currentUser, getRandomUser())
             }
             if (percentageVUs80) {
-                TestPostManageCatApprove(positiveCaseConfig, currentUser, usersKv.getRandomUser())
+                TestPostManageCatApprove(positiveCaseConfig, currentUser, getRandomUser())
             } else {
-                TestPostManageCatReject(positiveCaseConfig, currentUser, usersKv.getRandomUser())
+                TestPostManageCatReject(positiveCaseConfig, currentUser, getRandomUser())
             }
         }
     } else if (currentTarget === 100) {
         // auth
-        currentUser = TestLogin(positiveCaseConfig, usersKv.getRandomUser());
+        currentUser = TestLogin(positiveCaseConfig, getRandomUser());
         if (percentageVUs50) {
             currentUser = TestRegistration(positiveCaseConfig, currentUser);
-            usersKv[currentUser.email] = currentUser
+            users.push(currentUser)
         }
         // manage cat
         if (percentageVUs80) {
@@ -134,29 +134,29 @@ export default function () {
                 }
             }
             if (percentageVUs90) {
-                TestPostManageCatMatch(positiveCaseConfig, currentUser);
-                TestPostManageCatApprove(positiveCaseConfig, currentUser, usersKv.getRandomUser())
+                TestPostManageCatMatch(positiveCaseConfig, currentUser, getRandomUser());
+                TestPostManageCatApprove(positiveCaseConfig, currentUser, getRandomUser())
             }
         }
         // match cat
         if (percentageVUs90) {
-            TestPostManageCatMatch(positiveCaseConfig, currentUser);
+            TestPostManageCatMatch(positiveCaseConfig, currentUser, getRandomUser());
             TestGetManageCatMatch(positiveCaseConfig, currentUser);
             if (percentageVUs30) {
-                TestDeleteManageCatMatch(positiveCaseConfig, currentUser, usersKv.getRandomUser())
+                TestDeleteManageCatMatch(positiveCaseConfig, currentUser, getRandomUser())
             }
             if (percentageVUs80) {
-                TestPostManageCatApprove(positiveCaseConfig, currentUser, usersKv.getRandomUser())
+                TestPostManageCatApprove(positiveCaseConfig, currentUser, getRandomUser())
             } else {
-                TestPostManageCatReject(positiveCaseConfig, currentUser, usersKv.getRandomUser())
+                TestPostManageCatReject(positiveCaseConfig, currentUser, getRandomUser())
             }
         }
     } else if (currentTarget === 200) {
         // auth
-        currentUser = TestLogin(positiveCaseConfig, usersKv.getRandomUser());
+        currentUser = TestLogin(positiveCaseConfig, getRandomUser());
         if (percentageVUs50) {
             currentUser = TestRegistration(positiveCaseConfig);
-            usersKv[currentUser.email] = currentUser
+            users.push(currentUser)
         }
         if (percentageVUs80) {
             let cat = TestPostManageCat(config, currentUser);
@@ -170,59 +170,59 @@ export default function () {
         }
         // manage cat
         if (percentageVUs90) {
-            TestPostManageCatMatch(positiveCaseConfig, currentUser);
+            TestPostManageCatMatch(positiveCaseConfig, currentUser, getRandomUser());
             TestGetManageCatMatch(positiveCaseConfig, currentUser)
             if (percentageVUs30) {
-                TestDeleteManageCatMatch(positiveCaseConfig, currentUser, usersKv.getRandomUser())
+                TestDeleteManageCatMatch(positiveCaseConfig, currentUser, getRandomUser())
             }
             if (percentageVUs80) {
-                TestPostManageCatApprove(positiveCaseConfig, currentUser, usersKv.getRandomUser())
+                TestPostManageCatApprove(positiveCaseConfig, currentUser, getRandomUser())
             } else {
-                TestPostManageCatReject(positiveCaseConfig, currentUser, usersKv.getRandomUser())
+                TestPostManageCatReject(positiveCaseConfig, currentUser, getRandomUser())
             }
         }
 
         // match cat
         if (percentageVUs90) {
             if (percentageVUs20) {
-                TestPostManageCatMatch(config, currentUser);
+                TestPostManageCatMatch(config, currentUser, getRandomUser());
                 TestGetManageCatMatch(config, currentUser);
             } else {
-                TestPostManageCatMatch(positiveCaseConfig, currentUser);
+                TestPostManageCatMatch(positiveCaseConfig, currentUser, getRandomUser());
                 TestGetManageCatMatch(positiveCaseConfig, currentUser);
             }
             if (percentageVUs30) {
                 if (percentageVUs10) {
-                    TestDeleteManageCatMatch(config, currentUser, usersKv.getRandomUser())
+                    TestDeleteManageCatMatch(config, currentUser, getRandomUser())
                 } else {
-                    TestDeleteManageCatMatch(positiveCaseConfig, currentUser, usersKv.getRandomUser())
+                    TestDeleteManageCatMatch(positiveCaseConfig, currentUser, getRandomUser())
                 }
             }
             if (percentageVUs80) {
                 if (percentageVUs20) {
-                    TestPostManageCatApprove(config, currentUser, usersKv.getRandomUser())
+                    TestPostManageCatApprove(config, currentUser, getRandomUser())
                 } else {
-                    TestPostManageCatApprove(positiveCaseConfig, currentUser, usersKv.getRandomUser())
+                    TestPostManageCatApprove(positiveCaseConfig, currentUser, getRandomUser())
                 }
             } else {
                 if (percentageVUs10) {
-                    TestPostManageCatReject(config, currentUser, usersKv.getRandomUser())
+                    TestPostManageCatReject(config, currentUser, getRandomUser())
                 } else {
-                    TestPostManageCatReject(positiveCaseConfig, currentUser, usersKv.getRandomUser())
+                    TestPostManageCatReject(positiveCaseConfig, currentUser, getRandomUser())
                 }
             }
         } else if (currentTarget === 300) {
 
             // auth
             if (percentageVUs40) {
-                currentUser = TestLogin(positiveCaseConfig, usersKv.getRandomUser());
+                currentUser = TestLogin(positiveCaseConfig, getRandomUser());
             }
             else {
-                currentUser = TestLogin(positiveCaseConfig, usersKv.getRandomUser());
+                currentUser = TestLogin(positiveCaseConfig, getRandomUser());
             }
             if (percentageVUs10) {
                 currentUser = TestRegistration(positiveCaseConfig);
-                usersKv[currentUser.email] = currentUser
+                users.push(currentUser)
             }
 
             // manage cat
@@ -254,30 +254,30 @@ export default function () {
             // match cat
             if (percentageVUs90) {
                 if (percentageVUs20) {
-                    TestPostManageCatMatch(config, currentUser);
+                    TestPostManageCatMatch(config, currentUser, getRandomUser());
                     TestGetManageCatMatch(config, currentUser);
                 } else {
-                    TestPostManageCatMatch(positiveCaseConfig, currentUser);
+                    TestPostManageCatMatch(positiveCaseConfig, currentUser, getRandomUser());
                     TestGetManageCatMatch(positiveCaseConfig, currentUser);
                 }
                 if (percentageVUs30) {
                     if (percentageVUs10) {
-                        TestDeleteManageCatMatch(config, currentUser, usersKv.getRandomUser())
+                        TestDeleteManageCatMatch(config, currentUser, getRandomUser())
                     } else {
-                        TestDeleteManageCatMatch(positiveCaseConfig, currentUser, usersKv.getRandomUser())
+                        TestDeleteManageCatMatch(positiveCaseConfig, currentUser, getRandomUser())
                     }
                 }
                 if (percentageVUs80) {
                     if (percentageVUs20) {
-                        TestPostManageCatApprove(config, currentUser, usersKv.getRandomUser())
+                        TestPostManageCatApprove(config, currentUser, getRandomUser())
                     } else {
-                        TestPostManageCatApprove(positiveCaseConfig, currentUser, usersKv.getRandomUser())
+                        TestPostManageCatApprove(positiveCaseConfig, currentUser, getRandomUser())
                     }
                 } else {
                     if (percentageVUs10) {
-                        TestPostManageCatReject(config, currentUser, usersKv.getRandomUser())
+                        TestPostManageCatReject(config, currentUser, getRandomUser())
                     } else {
-                        TestPostManageCatReject(positiveCaseConfig, currentUser, usersKv.getRandomUser())
+                        TestPostManageCatReject(positiveCaseConfig, currentUser, getRandomUser())
                     }
                 }
             }
@@ -285,10 +285,10 @@ export default function () {
         } else if (currentTarget === 600) {
             // auth
             if (percentageVUs40) {
-                currentUser = TestLogin(positiveCaseConfig, usersKv.getRandomUser());
+                currentUser = TestLogin(positiveCaseConfig, getRandomUser());
             }
             else {
-                currentUser = TestLogin(positiveCaseConfig, usersKv.getRandomUser());
+                currentUser = TestLogin(positiveCaseConfig, getRandomUser());
             }
             if (percentageVUs10) {
                 if (percentageVUs20) {
@@ -297,7 +297,7 @@ export default function () {
                     currentUser = TestRegistration(positiveCaseConfig);
                 }
 
-                usersKv[currentUser.email] = currentUser
+                users.push(currentUser)
             }
 
             // manage cat
@@ -329,30 +329,30 @@ export default function () {
             // match cat
             if (percentageVUs90) {
                 if (percentageVUs20) {
-                    TestPostManageCatMatch(config, currentUser);
+                    TestPostManageCatMatch(config, currentUser, getRandomUser());
                     TestGetManageCatMatch(config, currentUser);
                 } else {
-                    TestPostManageCatMatch(positiveCaseConfig, currentUser);
+                    TestPostManageCatMatch(positiveCaseConfig, currentUser, getRandomUser());
                     TestGetManageCatMatch(positiveCaseConfig, currentUser);
                 }
                 if (percentageVUs30) {
                     if (percentageVUs10) {
-                        TestDeleteManageCatMatch(config, currentUser, usersKv.getRandomUser())
+                        TestDeleteManageCatMatch(config, currentUser, getRandomUser())
                     } else {
-                        TestDeleteManageCatMatch(positiveCaseConfig, currentUser, usersKv.getRandomUser())
+                        TestDeleteManageCatMatch(positiveCaseConfig, currentUser, getRandomUser())
                     }
                 }
                 if (percentageVUs80) {
                     if (percentageVUs20) {
-                        TestPostManageCatApprove(config, currentUser, usersKv.getRandomUser())
+                        TestPostManageCatApprove(config, currentUser, getRandomUser())
                     } else {
-                        TestPostManageCatApprove(positiveCaseConfig, currentUser, usersKv.getRandomUser())
+                        TestPostManageCatApprove(positiveCaseConfig, currentUser, getRandomUser())
                     }
                 } else {
                     if (percentageVUs10) {
-                        TestPostManageCatReject(config, currentUser, usersKv.getRandomUser())
+                        TestPostManageCatReject(config, currentUser, getRandomUser())
                     } else {
-                        TestPostManageCatReject(positiveCaseConfig, currentUser, usersKv.getRandomUser())
+                        TestPostManageCatReject(positiveCaseConfig, currentUser, getRandomUser())
                     }
                 }
             }
@@ -372,7 +372,7 @@ export default function () {
         const currentUser = getRandomUser()
         console.log("user credentials:", currentUser)
 
-        TestPostManageCatMatch(config, currentUser, getRandomUser());
+        TestPostManageCatMatch(config, getRandomUser(), currentUser, getRandomUser());
         TestGetManageCatMatch(config, currentUser);
         TestDeleteManageCatMatch(config, currentUser, getRandomUser(),);
         TestPostManageCatApprove(config, currentUser, getRandomUser(), {});
