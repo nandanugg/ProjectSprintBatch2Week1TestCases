@@ -5,7 +5,7 @@ run_debug:
 
 .PHONY: run_timed
 run_timed:
-	k6 run --duration 10s script.js
+	k6 run --duration 10s --exit-on-duration-exceed script.js
 
 .PHONY: run
 run:
