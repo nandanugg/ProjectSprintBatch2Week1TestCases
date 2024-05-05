@@ -5,6 +5,7 @@ import config from './config.js';
 import { TestDeleteManageCat, TestGetManageCat, TestPutManageCat, TestPostManageCat } from './testCases/manageCat.js';
 // import { TestDeleteManageCatMatch, TestGetManageCatMatch, TestPostManageCatApprove, TestPostManageCatMatch, TestPostManageCatReject } from './testCases/manageCatMatch.js';
 import { generateRandomNumber } from './helper.js';
+import { TestPostManageCatMatch } from './testCases/manageCatMatch.js';
 
 export const options = {
     stages: [],
