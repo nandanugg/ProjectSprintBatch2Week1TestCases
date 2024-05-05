@@ -259,7 +259,7 @@ export function TestDeleteManageCatMatch(config, user, user2, tags = {}) {
 
   generateCatMatch(config, currentFeature, headers, {
     Authorization: `Bearer ${user2.accessToken}`,
-  }, tags);
+  }, tags, true);
 
   currentTest = 'get all match cats';
   res = testGet(getRoute, {}, headers, tags);
@@ -318,7 +318,7 @@ export function TestDeleteManageCatMatch(config, user, user2, tags = {}) {
  * @param {Object} otherUserHeader 
  * @param {Object} tags 
  */
-function generateCatMatch(config, currentFeature, userHeader, otherUserHeader, tags) {
+function generateCatMatch(config, currentFeature, userHeader, otherUserHeader, tags, generateByUser = false) {
   // eslint-disable-next-line no-undef
   const route = `${__ENV.BASE_URL}/v1/cat/match`;
   // eslint-disable-next-line no-undef
@@ -370,19 +370,35 @@ function generateCatMatch(config, currentFeature, userHeader, otherUserHeader, t
   /** @type {Cat[]} */
   let ownedCats = res.json().data;
   ownedCats = ownedCats.filter((cat) => cat.hasMatched === false)
+  let positivePayload
+  if (!generateByUser) {
+    currentTest = 'match a new cat';
+    const notHasMatchedNotOwnedCat = notOwnedCats.filter((cat) => cat.hasMatched === false && cat.sex == matchCatGender)
+    const notHasMatchedOwnedCat = ownedCats.filter((cat) => cat.hasMatched === false && cat.sex == userCatGender)
+    positivePayload = {
+      matchCatId: notHasMatchedOwnedCat[generateRandomNumber(0, notHasMatchedOwnedCat.length - 1)].id,
+      userCatId: notHasMatchedNotOwnedCat[generateRandomNumber(0, notHasMatchedNotOwnedCat.length - 1)].id,
+      message: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+    };
+    res = testPostJson(route, positivePayload, otherUserHeader, tags);
+    assert(res, currentFeature, config, {
+      [`${currentTest} should return 201`]: (r) => r.status === 201,
+    }, positivePayload);
+  } else {
+    currentTest = 'match a new cat';
+    const notHasMatchedNotOwnedCat = notOwnedCats.filter((cat) => cat.hasMatched === false && cat.sex == matchCatGender)
+    const notHasMatchedOwnedCat = ownedCats.filter((cat) => cat.hasMatched === false && cat.sex == userCatGender)
+    positivePayload = {
+      matchCatId: notHasMatchedNotOwnedCat[generateRandomNumber(0, notHasMatchedNotOwnedCat.length - 1)].id,
+      userCatId: notHasMatchedOwnedCat[generateRandomNumber(0, notHasMatchedOwnedCat.length - 1)].id,
+      message: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+    };
+    res = testPostJson(route, positivePayload, userHeader, tags);
+    assert(res, currentFeature, config, {
+      [`${currentTest} should return 201`]: (r) => r.status === 201,
+    }, positivePayload);
 
-  currentTest = 'match a new cat';
-  const notHasMatchedNotOwnedCat = notOwnedCats.filter((cat) => cat.hasMatched === false && cat.sex == matchCatGender)
-  const notHasMatchedOwnedCat = ownedCats.filter((cat) => cat.hasMatched === false && cat.sex == userCatGender)
-  const positivePayload = {
-    matchCatId: notHasMatchedOwnedCat[generateRandomNumber(0, notHasMatchedOwnedCat.length - 1)].id,
-    userCatId: notHasMatchedNotOwnedCat[generateRandomNumber(0, notHasMatchedNotOwnedCat.length - 1)].id,
-    message: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-  };
-  res = testPostJson(route, positivePayload, otherUserHeader, tags);
-  assert(res, currentFeature, config, {
-    [`${currentTest} should return 201`]: (r) => r.status === 201,
-  }, positivePayload);
+  }
 
   return [ownedCats, notOwnedCats, positivePayload]
 }
