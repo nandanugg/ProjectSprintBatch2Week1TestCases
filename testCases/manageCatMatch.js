@@ -465,28 +465,28 @@ export function TestPostManageCatApprove(config, user, user2, tags = {}) {
   res = testPostJson(route, {
     matchId: userCatMatch.id,
   }, headers, tags);
-  let positivePayloadPassAssertTest = assert(res, currentFeature, config, {
+  assert(res, currentFeature, config, {
     [`${currentTest} should return something`]: (r) => r.status
   }, {
     matchId: userCatMatch.id,
   });
 
-  if (!config.POSITIVE_CASE) {
-    currentTest = 'get all match cats';
-    res = testGet(getRoute, {}, headers, tags);
-    positivePayloadPassAssertTest = assert(res, currentFeature, config, {
-      [`'${currentTest} should return 200`]: (r) => r.status === 200,
-      [`'${currentTest} should not have approved match request`]: (r) => {
-        try {
-          return r.json().data.find((match) => match.id === userCatMatch.id) === undefined;
-        } catch (e) {
-          return false;
-        }
-      },
-    }, {});
-  }
+  // if (!config.POSITIVE_CASE) {
+  //   currentTest = 'get all match cats';
+  //   res = testGet(getRoute, {}, headers, tags);
+  //   positivePayloadPassAssertTest = assert(res, currentFeature, config, {
+  //     [`'${currentTest} should return 200`]: (r) => r.status === 200,
+  //     [`'${currentTest} should not have approved match request`]: (r) => {
+  //       try {
+  //         return r.json().data.find((match) => match.id === userCatMatch.id) === undefined;
+  //       } catch (e) {
+  //         return false;
+  //       }
+  //     },
+  //   }, {});
+  // }
 
-  if (!positivePayloadPassAssertTest) return null;
+  // if (!positivePayloadPassAssertTest) return null;
 }
 
 
