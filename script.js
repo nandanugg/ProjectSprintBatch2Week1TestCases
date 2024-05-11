@@ -35,18 +35,12 @@ const positiveCaseConfig = Object.assign(config, {
 })
 
 const users = []
-const usedKeys = []
 function getRandomUser() {
     if (users.length === 0 || usedKeys.length === users.length) {
         return null;
     }
 
-    const i = generateRandomNumber(0, users.length - 1)
-    if (!usedKeys.includes(i)) {
-        usedKeys.push(i)
-        return users[i]
-    }
-    return getRandomUser()
+    return users[i]
 }
 
 const usersKv = {
